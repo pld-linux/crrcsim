@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Comment=A Model-Airplane Flight Simulation Program
+Exec=crrcsim
+Icon=crrcsim.png
+Name=CRRCsim
+Categories=Game;Simulation;
+Terminal=false
