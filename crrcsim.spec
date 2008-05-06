@@ -66,7 +66,7 @@ practicing in the relative safety of your pc.
 %endif
 
 %{__sed} -i 's/\%{_prefix}\/local\/share\/games/$(DESTDIR)\%{_prefix}\/share/' Makefile.linux
-%{__sed} -i 's/\%{_prefix}\/local/$*DESTDIR)\%{_prefix}/' Makefile.linux
+%{__sed} -i 's/\%{_prefix}\/local/$(DESTDIR)\%{_prefix}/' Makefile.linux
 %{__sed} -i 's/\%{_prefix}\/local\/share\/games/\%{_prefix}\/share/' config.cpp
 
 %build
