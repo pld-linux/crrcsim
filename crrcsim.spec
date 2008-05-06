@@ -1,9 +1,9 @@
 #
-# TODO: 
+# TODO:
 # - lib64 support (Makefile.linux64 or patch for Makefile.linux)
 # - addons - crrcsim-addon-models-0.2.0.zip
 #
-# Does not compile with glut :
+# Does not compile with glut:
 # http://lists.pld-linux.org/mailman/pipermail/pld-devel-pl/2006-November/137392.html
 #
 # pulseaudio-devel > 18.1
@@ -19,44 +19,43 @@
 %define		_rel		2
 
 Summary:	model-airplane flight simulator
-#Summary(pl.UTF-8):	
+#Summary(pl.UTF-8):
 Name:		crrcsim
 Version:	0.9.8
 Release:	0.2
 License:	GPL
 Group:		X11/Applications/Games
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-src-%{version}-%{_rel}.tar.gz
+Source0:	http://dl.sourceforge.net/crrcsim/%{name}-src-%{version}-%{_rel}.tar.gz
 # Source0-md5:	c89b4458fe0697059d40a2e4636632d0
 Source1:	%{name}.desktop
 URL:		http:///crrcsim.sourceforge.net/
+BuildRequires:	OpenGL-GLU-devel
+BuildRequires:	OpenGL-devel
+BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_sound:BuildRequires:	pulseaudio-devel = 18.1}
+BuildRequires:	freeglut-devel
 BuildRequires:	gle-devel
 BuildRequires:	glew-devel
-BuildRequires:	freeglut-devel 
 #BuildRequires:	glut-devel = 3.7
-BuildRequires:	sed >= 4.0
-BuildRequires:	SDL-devel
-BuildRequires:	OpenGL-devel
-BuildRequires:	OpenGL-GLU-devel
-BuildRequires:	xorg-lib-libXi-devel
-BuildRequires:	xorg-lib-libXt-devel
-BuildRequires:	xorg-lib-libXmu-devel
-BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	pkg-config
+%{?with_sound:BuildRequires:	pulseaudio-devel = 18.1}
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	sed >= 4.0
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXi-devel
+BuildRequires:	xorg-lib-libXmu-devel
+BuildRequires:	xorg-lib-libXt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-CRRCSim is a model-airplane flight simulation program for 
-Linux with ports to other platforms. Using CRRCSim you can 
-learn how to fly model aircraft, test new aircraft designs, 
-and improve your skills by practicing in the relative safety of your pc.
+CRRCSim is a model-airplane flight simulation program for Linux with
+ports to other platforms. Using CRRCSim you can learn how to fly model
+aircraft, test new aircraft designs, and improve your skills by
+practicing in the relative safety of your pc.
 
 #%description -l pl.UTF-8
-#Mikser dżwięku dla KDE 3 i ALSY, posiadający możliwości, w które kmix
-#jest ubogi.
+
 
 %prep
 %setup -q -n %{name}-%{version}-%{_rel}
@@ -66,9 +65,9 @@ and improve your skills by practicing in the relative safety of your pc.
 %{__sed} -i 's/CRRC_LINKER_FLAGS += -lportaudio/#CRRC_LINKER_FLAGS += -lportaudio/' Makefile.linux
 %endif
 
-%{__sed} -i 's/\/usr\/local\/share\/games/$(DESTDIR)\/usr\/share/' Makefile.linux
-%{__sed} -i 's/\/usr\/local/$*DESTDIR)\/usr/' Makefile.linux
-%{__sed} -i 's/\/usr\/local\/share\/games/\/usr\/share/' config.cpp
+%{__sed} -i 's/\%{_prefix}\/local\/share\/games/$(DESTDIR)\%{_prefix}\/share/' Makefile.linux
+%{__sed} -i 's/\%{_prefix}\/local/$*DESTDIR)\%{_prefix}/' Makefile.linux
+%{__sed} -i 's/\%{_prefix}\/local\/share\/games/\%{_prefix}\/share/' config.cpp
 
 %build
 #cp -f /usr/share/automake/config.* admin
@@ -89,7 +88,7 @@ and improve your skills by practicing in the relative safety of your pc.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -f Makefile.linux install \
-	DESTDIR=$RPM_BUILD_ROOT 
+	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}
 install -d $RPM_BUILD_ROOT%{_pixmapsdir}
@@ -99,7 +98,7 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files 
+%files
 %defattr(644,root,root,755)
 %doc README CHANGES_BY_KL  CHANGES_BY_TT
 %attr(755,root,root) %{_bindir}/%{name}
