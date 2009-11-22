@@ -38,7 +38,7 @@ BuildRequires:	freeglut-devel
 BuildRequires:	gle-devel
 BuildRequires:	glew-devel
 #BuildRequires:	glut-devel = 3.7
-BuildRequires:	pkg-config
+BuildRequires:	pkgconfig
 %{?with_sound:BuildRequires:	pulseaudio-devel = 18.1}
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
